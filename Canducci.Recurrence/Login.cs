@@ -3,14 +3,14 @@ namespace Canducci.Recurrence
 {
     public class Login
     {
-        public dynamic Endpoints { get; }
+        public dynamic EndPoints { get; }        
         public Login(Endpoints endpoints)
         {
-            Endpoints = endpoints;            
+            EndPoints = endpoints;            
         }
         public Login(string clientId, string clientSecret, bool sandbox = true)
         {
-            Endpoints = new Endpoints(clientId, clientSecret, sandbox);
+            EndPoints = new Endpoints(clientId, clientSecret, sandbox);
         }
     }
 }
