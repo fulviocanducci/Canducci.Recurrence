@@ -56,7 +56,7 @@
                 result.data.status,
                 result.data.customId,
                 result.data.charges,
-                result.data.created_at
+                DateTime.ParseExact(result.data.created_at, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)
                 );
         }
     }
