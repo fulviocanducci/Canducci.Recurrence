@@ -82,12 +82,64 @@ namespace Canducci.Recurrence
         List<SubscriptionItem>, 
         IList<SubscriptionItem>
     {
-        public IEnumerable<dynamic> ToObjects()
+        public dynamic ToObjects()
         {
-            foreach (SubscriptionItem item in this.ToList())
+
+            //var subscriptionBody = new
+            //{
+            //    items = new[] {
+            //        new {
+            //            name = "Product 1",
+            //            value = 1000,
+            //            amount = 2
+            //        }
+            //    }
+            //};
+            var items = new
             {
-                yield return item.ToObject();
-            }
+                items = this.ToList().Select(x => x.ToObject())
+            };
+            return items;
         }
+    }
+    public class Charge
+    {
+        public Charge(int chargeId, string status, int total, int parcel)
+        {
+            ChargeId = chargeId;
+            Status = status;
+            Total = total;
+            Parcel = parcel;
+        }
+        public int ChargeId { get; }
+        public string Status { get; }
+        public int Total { get; set; }
+        public decimal TotalToDecimal { get { return Total / 100; } }
+        public int Parcel { get; }
+    }
+    public class SubscriptionBodyResponse
+    {        
+        public SubscriptionBodyResponse(int code,
+            int subscriptionId,
+            string subscriptionStatus,
+            int customId,
+            List<Charge> charges,
+            DateTime createdAt
+            )
+        {
+            Code = code;
+            SubscriptionId = subscriptionId;
+            SubscriptionStatus = subscriptionStatus;
+            Charges = charges;
+            CustomId = CustomId;
+            CreatedAt = createdAt;
+        }
+        public int Code { get; }
+        public bool Status { get { return Code == 200; } }
+        public int SubscriptionId { get; }
+        public string SubscriptionStatus { get; }
+        public string CustomId { get; }
+        public List<Charge> Charges { get; }
+        public DateTime CreatedAt { get; }        
     }
 }
