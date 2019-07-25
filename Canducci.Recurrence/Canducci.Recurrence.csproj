@@ -52,6 +52,7 @@
     <Compile Include="Plan.cs" />
     <Compile Include="PlanResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscriptionBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
