@@ -1,26 +1,6 @@
 # Canducci.Recurrence
 
 ### Create Plan
-#### C#
-
-```Csharp
-const string clientId = "";
-const string clientSecret = "";
-Login login = new Login(clientId, clientSecret);
-Plan plan = new Plan(login);
-Body body = new Body("Plano Teste 001", 1, null);
-PlanResponse planResponse = plan.Create(body);
-if (planResponse.Status) // Foi criado o plano com sucesso
-{
-    //planResponse.Code;
-    //planResponse.Name;
-    //planResponse.Interval;
-    //planResponse.PlanId;
-    //planResponse.Repeats;
-    //planResponse.Status;
-    //planResponse.CreatedAt;                
-}
-```
 
 #### VB.NET
 
@@ -39,5 +19,25 @@ If planResponse.Status Then
     'planResponse.Repeats;
     'planResponse.Status;
     'planResponse.CreatedAt;
+End If
+```
+
+### Create Subscription
+```VB
+Const clientId As String = ""
+Const clientSecret As String = ""
+Dim login = New Login(clientId, clientSecret)
+Dim plan = New Plan(login)
+Dim subscriptionBody = New SubscriptionBody(
+    New SubscriptionItem("Peso sobe medida 1kg", 5, 57D),
+    New SubscriptionItem("Peso sobre medida 2kg", 5, 62)
+    )
+
+
+Dim subscriptionBodyResponse As SubscriptionBodyResponse =
+    plan.CreateSubscription(5560, subscriptionBody)
+
+If subscriptionBodyResponse.Status Then
+
 End If
 ```
