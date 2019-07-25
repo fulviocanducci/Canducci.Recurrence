@@ -10,7 +10,7 @@ namespace Canducci.Recurrence
         }
         public Login(string clientId, string clientSecret, bool sandbox = true)
         {
-            EndPoints = new Endpoints(clientId, clientSecret, sandbox);
+            EndPoints = new Endpoints(clientId, clientSecret, sandbox);            
         }
     }
 }

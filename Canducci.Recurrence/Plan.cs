@@ -4,7 +4,7 @@
     using System.Globalization;
     public class Plan
     {
-        public Login Login { get; }        
+        private Login Login { get; }        
         public Plan(Login login)
         {
             Login = login;
