@@ -1,7 +1,7 @@
 ﻿namespace Canducci.Recurrence
 {
-    using System;    
-    using System.Globalization;
+    using System;
+    using System.Collections.Generic;    
     public class Plan
     {
         private Login Login { get; }        
@@ -13,14 +13,14 @@
         {            
             var result = Login.EndPoints.CreatePlan(null, body.ToObject());            
             if (result.code == 200)
-            {
+            {                
                 return new PlanResponse(
-                        result.code,
-                        result.data.plan_id,
-                        result.data.name,
-                        result.data.interval,
-                        result.data.repeats,
-                        DateTime.ParseExact(result.data.created_at, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)
+                        (int)result.code,
+                        (int)result.data.plan_id,
+                        (string)result.data.name,
+                        (int)result.data.interval,
+                        (object)result.data.repeats != null? (int?)result.data.repeats:null,
+                        DateTime.Parse((string)result.data.created_at)
                     );
             }
             return new PlanResponse(result.code);
@@ -32,31 +32,30 @@
             {
                 id = planId
             };            
-            var result = Login.EndPoints.CreateSubscription(param, items.ToObjects());
-            //{
-            //  "code": 200, // retorno HTTP "200" informando que o pedido foi bem sucedido
-            //  "data": {
-            //    "subscription_id": numero_subscription_id, // número ID referente à inscrição gerada
-            //    "status": "new", // cobrança gerada, aguardando definição da forma de pagamento
-            //    "custom_id": null, // identificador próprio opcional
-            //    "charges": [
-            //      {
-            //        "charge_id": numero_charge_id, // número da ID referente à transação gerada
-            //        "status": "new", // cobrança gerada, aguardando definição da forma de pagamento
-            //        "total": 6990, // valor total da transação (em centavos, sendo 6990 = R$69,90)
-            //        "parcel": 1 // número de parcelas
-            //      }
-            //    ],
-            //    "created_at": "2016-06-29 10:42:59" // data e hora da criação da transação
-            //  }
-            //}
+            var result = Login.EndPoints.CreateSubscription(param, items.ToObjects());            
+            List<Charge> charges = new List<Charge>();
+            var chargesJToken = ((Newtonsoft.Json.Linq.JArray)result.data.charges)
+                .GetEnumerator();
+            while (chargesJToken.MoveNext())
+            {
+                dynamic x = chargesJToken.Current;
+                if (x != null)
+                {
+                    charges.Add(new Charge(
+                        (int)x.charge_id, 
+                        (string)x.status, 
+                        (int)x.total, 
+                        (int)x.parcel)
+                        );
+                }
+            }
             return new SubscriptionBodyResponse(
-                result.code,
-                result.data.subscription_id,
-                result.data.status,
-                result.data.customId,
-                result.data.charges,
-                DateTime.ParseExact(result.data.created_at, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)
+                (int)result.code,
+                (int)result.data.subscription_id,
+                (string)result.data.status,
+                (string)result.data.customId,
+                charges,
+                DateTime.Parse((string)result.data.created_at)
                 );
         }
     }

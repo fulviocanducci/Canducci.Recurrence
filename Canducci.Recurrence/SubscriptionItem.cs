@@ -1,17 +1,15 @@
-﻿namespace Canducci.Recurrence
+﻿using System;
+namespace Canducci.Recurrence
 {
-    public sealed class Body
-    {       
-        public Body(string name, int interval, int? repeats)
+    public class SubscriptionItem
+    {
+        public SubscriptionItem(string name, int amount, decimal value)
         {
             Name = name;
-            Interval = interval;
-            Repeats = repeats;
+            Amount = amount;
+            Value = value;
         }
-        private string name = string.Empty;
-        private int? repeats = null;
-        private int interval = 1;
-
+        private string name;
         public string Name
         {
             get
@@ -29,51 +27,48 @@
                     throw new System.FormatException("Mínimo de 1 caractere e máximo de 255 caracteres.");
                 }
                 name = value;
+
             }
         }
-
-        public int Interval
+        private int amount;
+        public int Amount
         {
             get
             {
-                return interval;
+                return amount;
             }
             set
             {
-                if (value <= 0 || value > 12)
+                if (value <=0)
                 {
-                    throw new System.FormatException("Mínimo de 1 mês e máximo de 24 meses.");
+                    throw new FormatException("Mínimo de 1 (Integer)");
                 }
-                interval = value;
+                amount = value;
             }
         }
-        
-        public int? Repeats
+        private decimal value;
+        public decimal Value
         {
             get
             {
-                return repeats;
+                return value;
             }
             set
             {
-                if (value.HasValue)
+                if (value <= 0)
                 {
-                    if (value < 2 || value > 120)
-                    {
-                        throw new System.FormatException("Mínimo de 2 e máximo de 120.");
-                    }
+                    throw new FormatException("Mínimo de 1 real");
                 }
-                repeats = value;
+                this.value = value;
             }
         }
-
         public dynamic ToObject()
         {
             return new
             {
                 name = Name,
-                repeats = Repeats,
-                interval = Interval
+                value = (Value * 100),
+                amount = Amount
             };
         }
     }
