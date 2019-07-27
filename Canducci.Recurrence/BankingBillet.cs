@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 
 namespace Canducci.Recurrence
 {
@@ -9,14 +10,25 @@ namespace Canducci.Recurrence
         public Configurations Configurations { get; set; }
         public override dynamic ToObject()
         {
-            dynamic banking_billet = new
+            dynamic payment = new ExpandoObject();
+            payment.payment = new ExpandoObject();
+            payment.payment.banking_billet = new ExpandoObject();
+            payment.payment.banking_billet.customer = Customer.ToObject();
+            payment.payment.banking_billet.expire_at = ExpireAt.ToString("yyyy-MM-dd");
+            if (Discount != null)
             {
-                banking_billet = base.ToObject()
-            };
-            banking_billet.expire_at = ExpireAt.ToString("yyyy-MM-dd");            
-            banking_billet.conditional_discount = ConditionalDiscount.ToObject();
-            banking_billet.configurations = Configurations.ToObject();
-            return banking_billet;
+                payment.payment.banking_billet.discount = Discount.ToObject();
+            }
+            if (ConditionalDiscount != null)
+            {
+                payment.payment.banking_billet.conditional_discount = ConditionalDiscount.ToObject();
+            }
+            if (Configurations != null)
+            {
+                payment.payment.banking_billet.configurations = Configurations.ToObject();
+            }
+            payment.payment.banking_billet.message = Message;
+            return (object)payment;      
         }
     }
 }

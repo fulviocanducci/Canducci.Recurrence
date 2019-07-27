@@ -1,4 +1,6 @@
-﻿namespace Canducci.Recurrence
+﻿using System.Dynamic;
+
+namespace Canducci.Recurrence
 {
     public class CreditCard : ChargeType // Cartão de crédito
     {
@@ -7,14 +9,25 @@
         public int? TrialDays { get; set; }
         public override dynamic ToObject()
         {
-            dynamic credit_card = new
+            dynamic payment = new ExpandoObject();
+            payment.payment = new ExpandoObject();
+            payment.payment.credit_card = new ExpandoObject();
+            payment.payment.credit_card.customer = Customer.ToObject();
+            payment.payment.credit_card.billing_address = BillingAddress.ToObject();
+            payment.payment.credit_card.payment_token = PaymentToken;
+            if (Discount != null)
             {
-                credit_card = base.ToObject()                
-            };
-            credit_card.billing_address = BillingAddress.ToObject();
-            credit_card.payment_token = PaymentToken;
-            credit_card.trial_days = TrialDays;
-            return credit_card;
+                payment.payment.credit_card.discount = Discount.ToObject();
+            }
+            if (!string.IsNullOrEmpty(Message))
+            {
+                payment.payment.credit_card.message = Message;
+            }
+            if (TrialDays.HasValue)
+            {
+                payment.payment.credit_card.trial_days = TrialDays;
+            }
+            return (object)payment;           
         }
     }
 }

@@ -58,5 +58,22 @@
                 DateTime.Parse((string)result.data.created_at)
                 );
         }
+
+        public dynamic CreatePaymentBankingBillet(int id, BankingBillet body)
+        {
+            var param = new
+            {
+                id //.charge_id # <%-- informe o charge_id --%>
+            };
+            return Login.EndPoints.PaySubscription(param, body.ToObject());
+        }
+        public dynamic CreatePaymentCreditCard(int id, CreditCard body)
+        {
+            var param = new
+            {
+                id //<%-- informe o subscription_id --%>
+            };
+            return Login.EndPoints.PaySubscription(param, body.ToObject());
+        }
     }
 }

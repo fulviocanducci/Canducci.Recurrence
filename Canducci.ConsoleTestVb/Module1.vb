@@ -5,34 +5,102 @@ Module Module1
     Sub Main()
         Dim login = New Login(clientId, clientSecret)
         Dim plan = New Plan(login)
-        'CreatePlan(plan)
-        'CreateSubscription(plan)
+        Dim PlanResponse = CreatePlan(plan)
+        Dim SubscriptionBodyResponse = CreateSubscription(plan, PlanResponse.PlanId)
+        Dim result = plan.CreatePaymentBankingBillet(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
+        'Dim result = plan.CreatePaymentCreditCard(SubscriptionBodyResponse.SubscriptionId, CreateCreditCard())
     End Sub
-    Sub CreatePlan(ByVal plan As Plan)
-        Dim body = New Body("Plano Teste 001", 1, Nothing)
-        Dim planResponse As PlanResponse = plan.Create(body)
-        If planResponse.Status Then
-            'planResponse.Code;
-            'planResponse.Name;
-            'planResponse.Interval;
-            'planResponse.PlanId;
-            'planResponse.Repeats;
-            'planResponse.Status;
-            'planResponse.CreatedAt;
-        End If
-    End Sub
-    Sub CreateSubscription(ByVal plan As Plan)
+    Function CreatePlan(ByVal plan As Plan) As PlanResponse
+        Dim body = New Body("Plano Teste 002", 1, Nothing)
+        Return plan.Create(body)
+    End Function
+    Function CreateSubscription(ByVal plan As Plan, ByVal planId As Integer) As SubscriptionBodyResponse
         Dim subscriptionBody = New SubscriptionBody(
-            New SubscriptionItem("Peso sobe medida 1kg", 5, 57D),
-            New SubscriptionItem("Peso sobre medida 2kg", 5, 62)
-            )
+            New SubscriptionItem("Roupa e Malhas", 100, 10D),
+            New SubscriptionItem("Meias", 100, 11D),
+            New SubscriptionItem("Cuecas", 100, 21D)
+        )
+        Return plan.CreateSubscription(planId, subscriptionBody)
+    End Function
+    Function CreateCreditCard() As Object
+        Dim CreditCar = New CreditCard()
+        CreditCar.Customer = New Customer()
+        CreditCar.Customer.Name = "User Teste"
+        CreditCar.Customer.CPF = "111.111.111-11"
+        CreditCar.Customer.Birth = Date.Now
+        CreditCar.Customer.Email = "user@user.com"
+        CreditCar.Customer.Address = New Address With {
+            .City = "Presidente Prudente",
+            .Complement = "Casa - Residencial",
+            .Neighborhood = "Bairro",
+            .Number = "S/N",
+            .State = "SP",
+            .Street = "Rua A",
+            .Zipcode = "19.200-000"
+        }
+        CreditCar.Customer.JuridicalPerson = New JuridicalPerson With {
+            .CorporateName = "Razão Social",
+            .CNPJ = "00.000.000/0001-00"
+        }
+        CreditCar.Customer.PhoneNumber = "1832326363"
+        CreditCar.BillingAddress = New BillingAddress With {
+            .City = "Presidente Prudente",
+            .Complement = "Casa - Residencial",
+            .Neighborhood = "Bairro",
+            .Number = "S/N",
+            .State = "SP",
+            .Street = "Rua A",
+            .Zipcode = "19.200-000"
+        }
+        CreditCar.PaymentToken = "1234567890123456789012345678901234567890"
+        CreditCar.Discount = New Discount() With {
+            .Type = DiscountType.Currency,
+            .Value = 10
+        }
+        CreditCar.Message = "Cartão de Crédito"
+        CreditCar.TrialDays = Nothing
 
+        Return CreditCar
 
-        Dim subscriptionBodyResponse As SubscriptionBodyResponse =
-            plan.CreateSubscription(5560, subscriptionBody)
+    End Function
+    Function CreateBankingBillet() As Object
 
-        If subscriptionBodyResponse.Status Then
+        Dim BankingBillet = New BankingBillet()
+        BankingBillet.Customer = New Customer()
+        BankingBillet.Customer.Name = "User Teste"
+        BankingBillet.Customer.CPF = "608.489.640-55"
+        BankingBillet.Customer.Birth = Date.Now
+        BankingBillet.Customer.Email = "user@user.com"
+        BankingBillet.ExpireAt = Date.Now
+        BankingBillet.Customer.Address = New Address With {
+            .City = "Presidente Prudente",
+            .Complement = "Casa - Residencial",
+            .Neighborhood = "Bairro",
+            .Number = "S/N",
+            .State = "SP",
+            .Street = "Rua A",
+            .Zipcode = "19.200-000"
+        }
+        'BankingBillet.Customer.JuridicalPerson = New JuridicalPerson With {
+        '    .CorporateName = "Razão Social",
+        '    .CNPJ = "00.000.000/0001-00"
+        '}
+        BankingBillet.Customer.PhoneNumber = "1832326363"
+        'BankingBillet.Discount = New Discount() With {
+        '    .Type = DiscountType.Currency,
+        '    .Value = 10
+        '}
+        'BankingBillet.ConditionalDiscount = New ConditionalDiscount() With {
+        '    .Type = DiscountType.Currency,
+        '    .Value = 11,
+        '    .UntilDate = Date.Now
+        '}
+        'BankingBillet.Configurations = New Configurations() With {
+        '    .Fine = 1,
+        '    .Interest = 1
+        '}
+        BankingBillet.Message = "Bolete Bancário"
 
-        End If
-    End Sub
+        Return BankingBillet
+    End Function
 End Module

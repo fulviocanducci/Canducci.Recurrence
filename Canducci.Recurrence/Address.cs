@@ -1,5 +1,6 @@
 ﻿namespace Canducci.Recurrence
 {
+    using Canducci.Recurrence.Strings;
     public class Address
     {
         public string Street { get; set; }
@@ -16,7 +17,7 @@
                 street = Street,
                 number = Number,
                 neighborhood = Neighborhood,
-                zipcode = Zipcode,
+                zipcode = Zipcode.ToDigitsOnly(),
                 city = City,
                 complement = Complement,
                 state = State

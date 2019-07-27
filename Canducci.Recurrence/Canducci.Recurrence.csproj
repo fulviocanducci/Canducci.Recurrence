@@ -67,6 +67,7 @@
     <Compile Include="PlanResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shippings.cs" />
+    <Compile Include="Strings\Extensions.cs" />
     <Compile Include="SubscriptionBody.cs" />
     <Compile Include="SubscriptionBodyResponse.cs" />
     <Compile Include="SubscriptionItem.cs" />
@@ -77,5 +78,6 @@
   <ItemGroup>
     <Content Include="link.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

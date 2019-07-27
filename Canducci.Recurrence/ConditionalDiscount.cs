@@ -10,12 +10,9 @@ namespace Canducci.Recurrence
         {
             return new
             {
-                discount = new
-                {
-                    type = Type == DiscountType.Currency ? "currency" : "percentage",
-                    value = Value,
-                    until_date = UntilDate.ToString("yyyy-MM-dd")
-                }
+                type = Type == DiscountType.Currency ? "currency" : "percentage",
+                value = Value,
+                until_date = UntilDate.ToString("yyyy-MM-dd")
             };
         }
     }
