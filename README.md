@@ -32,10 +32,9 @@ Dim subscriptionBody = New SubscriptionBody(
     New SubscriptionItem("Peso sobe medida 1kg", 5, 57D),
     New SubscriptionItem("Peso sobre medida 2kg", 5, 62)
     )
-Dim subscriptionBodyResponse As SubscriptionBodyResponse =
-    subscriptions.CreateSubscription(PlanResponse.PlanId, subscriptionBody)
 
-If subscriptionBodyResponse.Status Then
+Dim subscriptionBodyResponse = subscriptions.Create(PlanResponse.PlanId, subscriptionBody)
+If subscriptionBodyResponse.Status Then ' status = 200 Ok Created'
 
 End If
 ```
