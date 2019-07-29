@@ -1,4 +1,5 @@
-﻿namespace Canducci.Recurrence
+﻿using Canducci.Recurrence.Extensions;
+namespace Canducci.Recurrence.Models
 {
     public class Shippings
     {
@@ -48,13 +49,12 @@
             }
         }
         public string PayeeCode { get; set; }
-
         public dynamic ToObject()
         {
             return new
             {
                 name = Name,
-                value = (Value * 100),
+                value = Value.ToMultiple(),
                 payeeCode = PayeeCode
             };
         }

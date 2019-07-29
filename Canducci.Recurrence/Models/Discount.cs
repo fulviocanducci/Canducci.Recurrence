@@ -1,4 +1,6 @@
-﻿namespace Canducci.Recurrence
+﻿using Canducci.Recurrence.EnumsType;
+
+namespace Canducci.Recurrence.Models
 {
     public class Discount
     {

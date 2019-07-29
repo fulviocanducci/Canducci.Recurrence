@@ -1,26 +1,49 @@
 ﻿Imports Canducci.Recurrence
+Imports Canducci.Recurrence.EnumsType
+Imports Canducci.Recurrence.Models
+Imports Canducci.Recurrence.Responses
 Module Module1
     Const clientId As String = "Client_Id_8d58dcde793202a58d6b7cfeb7a087a0800cb2f5"
     Const clientSecret As String = "Client_Secret_839ab219d1399476f7dee5ccf22bc08e08c874b9"
     Sub Main()
-        Dim login = New Login(clientId, clientSecret)
-        Dim plan = New Plan(login)
-        Dim PlanResponse = CreatePlan(plan)
-        Dim SubscriptionBodyResponse = CreateSubscription(plan, PlanResponse.PlanId)
-        Dim result = plan.CreatePaymentBankingBillet(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
-        'Dim result = plan.CreatePaymentCreditCard(SubscriptionBodyResponse.SubscriptionId, CreateCreditCard())
+        ' Login Client
+        Dim login As Login = Login.Create(clientId, clientSecret)
+        '------------------------------------------------------------------------------
+
+        ' Plans Instance
+        Dim plans As Plans = Plans.Create(login)
+
+        ' Subscriptions Instance
+        Dim subscriptions As New Subscriptions(login)
+
+        ' CreditCards Instance
+        Dim creditCards As New CreditCards(login)
+
+        ' BankingBillets Instance
+        '------------------------------------------------------------------------------
+        Dim bankingBillets As New BankingBillets(login)
+
+        ' Create Plans
+        Dim PlanResponse = CreatePlan(plans)
+        '------------------------------------------------------------------------------
+
+        ' Creaate Subscriptions
+        Dim SubscriptionBodyResponse = CreateSubscription(subscriptions, PlanResponse.PlanId)
+        '------------------------------------------------------------------------------
+        Dim result = bankingBillets.Create(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
+        'Dim result = creditCards.Create(SubscriptionBodyResponse.SubscriptionId, CreateCreditCard())
     End Sub
-    Function CreatePlan(ByVal plan As Plan) As PlanResponse
+    Function CreatePlan(ByVal plan As Plans) As PlanResponse
         Dim body = New Body("Plano Teste 002", 1, Nothing)
         Return plan.Create(body)
     End Function
-    Function CreateSubscription(ByVal plan As Plan, ByVal planId As Integer) As SubscriptionBodyResponse
+    Function CreateSubscription(ByVal Subscriptions As Subscriptions, ByVal planId As Integer) As SubscriptionBodyResponse
         Dim subscriptionBody = New SubscriptionBody(
             New SubscriptionItem("Roupa e Malhas", 100, 10D),
             New SubscriptionItem("Meias", 100, 11D),
             New SubscriptionItem("Cuecas", 100, 21D)
         )
-        Return plan.CreateSubscription(planId, subscriptionBody)
+        Return Subscriptions.Create(planId, subscriptionBody)
     End Function
     Function CreateCreditCard() As Object
         Dim CreditCar = New CreditCard()

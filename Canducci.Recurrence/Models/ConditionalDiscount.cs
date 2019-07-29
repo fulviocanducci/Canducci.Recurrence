@@ -1,7 +1,7 @@
-﻿using System;
-
-
-namespace Canducci.Recurrence
+﻿using Canducci.Recurrence.EnumsType;
+using Canducci.Recurrence.Extensions;
+using System;
+namespace Canducci.Recurrence.Models
 {
     public class ConditionalDiscount: Discount
     {
@@ -12,7 +12,7 @@ namespace Canducci.Recurrence
             {
                 type = Type == DiscountType.Currency ? "currency" : "percentage",
                 value = Value,
-                until_date = UntilDate.ToString("yyyy-MM-dd")
+                until_date = UntilDate.ToStringDate()
             };
         }
     }

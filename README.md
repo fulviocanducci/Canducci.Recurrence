@@ -8,8 +8,8 @@
 Const clientId As String = ""
 Const clientSecret As String = ""
 Dim login = New Login(clientId, clientSecret)
-Dim plan = New Plan(login)
 Dim body = New Body("Plano Teste 001", 1, vbNull)
+Dim plan = New Plans(login)
 Dim planResponse As PlanResponse = plan.Create(body)
 If planResponse.Status Then
     'planResponse.Code;
@@ -27,15 +27,13 @@ End If
 Const clientId As String = ""
 Const clientSecret As String = ""
 Dim login = New Login(clientId, clientSecret)
-Dim plan = New Plan(login)
+Dim subscriptions As New Subscriptions(login)
 Dim subscriptionBody = New SubscriptionBody(
     New SubscriptionItem("Peso sobe medida 1kg", 5, 57D),
     New SubscriptionItem("Peso sobre medida 2kg", 5, 62)
     )
-
-
 Dim subscriptionBodyResponse As SubscriptionBodyResponse =
-    plan.CreateSubscription(5560, subscriptionBody)
+    subscriptions.CreateSubscription(PlanResponse.PlanId, subscriptionBody)
 
 If subscriptionBodyResponse.Status Then
 
@@ -46,7 +44,6 @@ End If
 #### BankingBillet - Boleto Bancário
 ```VB
 Function CreateBankingBillet() As Object
-
     Dim BankingBillet = New BankingBillet()
     BankingBillet.Customer = New Customer()
     BankingBillet.Customer.Name = "User Teste"
@@ -82,13 +79,15 @@ Function CreateBankingBillet() As Object
     '    .Interest = 1
     '}
     BankingBillet.Message = "Bolete Bancário"
-
     Return BankingBillet
 End Function
 
-___
+Dim bankingBillets As New BankingBillets(login)
+Dim result = bankingBillets.Create(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
 
 ```
+___
+
 #### CreditCard - Cartão de Crédito
 ```VB
 Function CreateCreditCard() As Object
@@ -128,8 +127,9 @@ Function CreateCreditCard() As Object
     }
     CreditCar.Message = "Cartão de Crédito"
     CreditCar.TrialDays = Nothing
-
     Return CreditCar
-
 End Function
+
+Dim creditCards As New CreditCards(login)
+Dim result = creditCards.Create(SubscriptionBodyResponse.SubscriptionId, CreateCreditCard())
 ```

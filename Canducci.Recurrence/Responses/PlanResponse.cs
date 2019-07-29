@@ -1,8 +1,6 @@
-﻿namespace Canducci.Recurrence
-{
-    using System;
-
-    public class PlanResponse
+﻿using System;
+namespace Canducci.Recurrence.Responses
+{    public class PlanResponse
     {
         public PlanResponse(int code, int planId, string name, int interval, int? repeats, DateTime createdAt)
         {

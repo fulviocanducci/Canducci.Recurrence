@@ -1,4 +1,4 @@
-﻿namespace Canducci.Recurrence
+﻿namespace Canducci.Recurrence.EnumsType
 {
     public enum DiscountType
     {

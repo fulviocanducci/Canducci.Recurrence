@@ -47,30 +47,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="BankingBillet.cs" />
-    <Compile Include="BillingAddress.cs" />
-    <Compile Include="Body.cs" />
-    <Compile Include="Charge.cs" />
-    <Compile Include="ChargeType.cs" />
-    <Compile Include="ConditionalDiscount.cs" />
-    <Compile Include="Configurations.cs" />
-    <Compile Include="CreditCard.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="Discount.cs" />
-    <Compile Include="DiscountType.cs" />
-    <Compile Include="JuridicalPerson.cs" />
+    <Compile Include="BankingBillets.cs" />
+    <Compile Include="CreditCards.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\BankingBillet.cs" />
+    <Compile Include="Models\BillingAddress.cs" />
+    <Compile Include="Models\Body.cs" />
+    <Compile Include="Models\Charge.cs" />
+    <Compile Include="Core\ChargeType.cs" />
+    <Compile Include="Models\ConditionalDiscount.cs" />
+    <Compile Include="Models\Configurations.cs" />
+    <Compile Include="Models\CreditCard.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Discount.cs" />
+    <Compile Include="EnumsType\DiscountType.cs" />
+    <Compile Include="Models\JuridicalPerson.cs" />
     <Compile Include="Login.cs" />
-    <Compile Include="Metadatas.cs" />
-    <Compile Include="People.cs" />
-    <Compile Include="Plan.cs" />
-    <Compile Include="PlanResponse.cs" />
+    <Compile Include="Models\Metadatas.cs" />
+    <Compile Include="Models\People.cs" />
+    <Compile Include="Plans.cs" />
+    <Compile Include="Responses\PlanResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shippings.cs" />
-    <Compile Include="Strings\Extensions.cs" />
-    <Compile Include="SubscriptionBody.cs" />
-    <Compile Include="SubscriptionBodyResponse.cs" />
-    <Compile Include="SubscriptionItem.cs" />
+    <Compile Include="Models\Shippings.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Models\SubscriptionBody.cs" />
+    <Compile Include="Responses\SubscriptionBodyResponse.cs" />
+    <Compile Include="Models\SubscriptionItem.cs" />
+    <Compile Include="Subscriptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

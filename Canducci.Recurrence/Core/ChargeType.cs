@@ -1,4 +1,6 @@
-﻿namespace Canducci.Recurrence
+﻿using Canducci.Recurrence.Models;
+
+namespace Canducci.Recurrence.Core
 {
     public abstract class ChargeType // classe base de cobrança para boleto e cartão
     {

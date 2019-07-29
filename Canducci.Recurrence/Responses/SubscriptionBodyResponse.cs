@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
-namespace Canducci.Recurrence
-{
-    public class SubscriptionBodyResponse
+using Canducci.Recurrence.Models;
+namespace Canducci.Recurrence.Responses
+{    public class SubscriptionBodyResponse
     {        
         public SubscriptionBodyResponse(int code,
             int subscriptionId,

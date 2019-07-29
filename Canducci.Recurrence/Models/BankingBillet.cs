@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Canducci.Recurrence.Extensions;
+using System;
 using System.Dynamic;
 
-namespace Canducci.Recurrence
+namespace Canducci.Recurrence.Models
 {
-    public class BankingBillet : ChargeType //boleto bancário
+    public class BankingBillet : Core.ChargeType //boleto bancário
     {        
         public DateTime ExpireAt { get; set; }
         public ConditionalDiscount ConditionalDiscount { get; set; }
@@ -14,7 +15,7 @@ namespace Canducci.Recurrence
             payment.payment = new ExpandoObject();
             payment.payment.banking_billet = new ExpandoObject();
             payment.payment.banking_billet.customer = Customer.ToObject();
-            payment.payment.banking_billet.expire_at = ExpireAt.ToString("yyyy-MM-dd");
+            payment.payment.banking_billet.expire_at = ExpireAt.ToStringDate();
             if (Discount != null)
             {
                 payment.payment.banking_billet.discount = Discount.ToObject();

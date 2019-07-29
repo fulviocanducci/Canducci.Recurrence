@@ -1,5 +1,7 @@
-﻿using System;
-namespace Canducci.Recurrence
+﻿using Canducci.Recurrence.Extensions;
+using System;
+
+namespace Canducci.Recurrence.Models
 {
     public abstract class People
     {
@@ -16,7 +18,7 @@ namespace Canducci.Recurrence
                 cpf = CPF,
                 email = Email,
                 phone_number = PhoneNumber,
-                birth = Birth.ToString("yyyy-MM-dd")
+                birth = Birth.ToStringDate()
             };
         }
     }

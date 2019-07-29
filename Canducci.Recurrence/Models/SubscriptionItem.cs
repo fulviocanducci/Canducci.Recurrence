@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Canducci.Recurrence
+using Canducci.Recurrence.Extensions;
+namespace Canducci.Recurrence.Models
 {
     public class SubscriptionItem
     {
@@ -67,7 +68,7 @@ namespace Canducci.Recurrence
             return new
             {
                 name = Name,
-                value = (Value * 100),
+                value = value.ToMultiple(),
                 amount = Amount
             };
         }

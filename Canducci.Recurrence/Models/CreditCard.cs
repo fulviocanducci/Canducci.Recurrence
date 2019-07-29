@@ -1,8 +1,7 @@
 ﻿using System.Dynamic;
-
-namespace Canducci.Recurrence
+namespace Canducci.Recurrence.Models
 {
-    public class CreditCard : ChargeType // Cartão de crédito
+    public class CreditCard : Core.ChargeType // Cartão de crédito
     {
         public BillingAddress BillingAddress { get; set; }
         public string PaymentToken { get; set; }

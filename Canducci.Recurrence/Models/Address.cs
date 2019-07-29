@@ -1,6 +1,6 @@
-﻿namespace Canducci.Recurrence
-{
-    using Canducci.Recurrence.Strings;
+﻿using Canducci.Recurrence.Extensions;
+namespace Canducci.Recurrence.Models
+{        
     public class Address
     {
         public string Street { get; set; }
