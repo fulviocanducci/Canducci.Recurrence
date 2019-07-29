@@ -11,8 +11,8 @@ namespace Canducci.Recurrence
         {
             Login = login;
         }
-        public SubscriptionBodyResponse Create(PlanResponse planResponse, SubscriptionBody items)
-            => Create(planResponse.PlanId, items);
+        public SubscriptionBodyResponse Create(PlanResponse<PlanResponseData> planResponse, SubscriptionBody items)
+            => Create(planResponse.Data.PlanId, items);
         public SubscriptionBodyResponse Create(int planId, SubscriptionBody items)
         {
             var param = new
@@ -24,14 +24,14 @@ namespace Canducci.Recurrence
             var chargesJToken = ((Newtonsoft.Json.Linq.JArray)result.data.charges).GetEnumerator();
             while (chargesJToken.MoveNext())
             {
-                dynamic x = chargesJToken.Current;
-                if (x != null)
+                dynamic current = chargesJToken.Current;
+                if (current != null)
                 {
                     charges.Add(new Charge(
-                        (int)x.charge_id,
-                        (string)x.status,
-                        (int)x.total,
-                        (int)x.parcel)
+                        (int)current.charge_id,
+                        (string)current.status,
+                        (int)current.total,
+                        (int)current.parcel)
                         );
                 }
             }
@@ -43,6 +43,11 @@ namespace Canducci.Recurrence
                 charges,
                 DateTime.Parse((string)result.data.created_at)
                 );
+        }
+        public dynamic Get(int id)
+        {
+            var param = new { id };
+            return Login.EndPoints.DetailSubscription(param);
         }
         public static Subscriptions Create(Login login) => new Subscriptions(login);
     }

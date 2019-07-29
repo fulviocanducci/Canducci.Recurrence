@@ -11,29 +11,32 @@ Module Module1
         '------------------------------------------------------------------------------
 
         ' Plans Instance
-        Dim plans As Plans = Plans.Create(login)
+        'Dim plans As Plans = Plans.Create(login)
+        'Dim plansItems = plans.Get(5560)
+        'Dim d = plansItems
 
         ' Subscriptions Instance
         Dim subscriptions As New Subscriptions(login)
-
+        Dim a = subscriptions.Get(32746)
+        Dim b = a
         ' CreditCards Instance
-        Dim creditCards As New CreditCards(login)
+        'Dim creditCards As New CreditCards(login)
 
         ' BankingBillets Instance
         '------------------------------------------------------------------------------
-        Dim bankingBillets As New BankingBillets(login)
+        'Dim bankingBillets As New BankingBillets(login)
 
         ' Create Plans
-        Dim PlanResponse = CreatePlan(plans)
+        'Dim PlanResponse = CreatePlan(plans)
         '------------------------------------------------------------------------------
 
         ' Creaate Subscriptions
-        Dim SubscriptionBodyResponse = CreateSubscription(subscriptions, PlanResponse.PlanId)
+        'Dim SubscriptionBodyResponse = CreateSubscription(subscriptions, PlanResponse.PlanId)
         '------------------------------------------------------------------------------
-        Dim result = bankingBillets.Create(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
+        'Dim result = bankingBillets.Create(SubscriptionBodyResponse.SubscriptionId, CreateBankingBillet())
         'Dim result = creditCards.Create(SubscriptionBodyResponse.SubscriptionId, CreateCreditCard())
     End Sub
-    Function CreatePlan(ByVal plan As Plans) As PlanResponse
+    Function CreatePlan(ByVal plan As Plans) As PlanResponse(Of PlanResponseData)
         Dim body = New Body("Plano Teste 002", 1, Nothing)
         Return plan.Create(body)
     End Function

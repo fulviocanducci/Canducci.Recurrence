@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BankingBillets.cs" />
+    <Compile Include="Core\ResponseCodeStatus.cs" />
     <Compile Include="CreditCards.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BankingBillet.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\Shippings.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Models\SubscriptionBody.cs" />
+    <Compile Include="Responses\PlanResponseData.cs" />
     <Compile Include="Responses\SubscriptionBodyResponse.cs" />
     <Compile Include="Models\SubscriptionItem.cs" />
     <Compile Include="Subscriptions.cs" />
